@@ -25,10 +25,11 @@ include ('login.php');
                         <td align="left"><input id="pass" name="password" placeholder="password" type="password"></td>
                     </tr>
                     <tr>
-                        <td><input id="submit" name ="submit" type="submit" value="login"></td>
+                        <td><input id="submit" name="submit" type="submit" value="login"></td>
                     </tr>
                 </table>
             </form>
+            <a href="register.php">Register</a>
         </div>
     </body>
 </html>
