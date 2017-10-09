@@ -4,17 +4,23 @@ include ('../../furmazon_db_cfg.php');
 $mysqli = new mysqli('localhost', $db_user, $db_pass, $db_name);
 unset ($db_user, $db_pass);
 
+session_start();
 $user_check = $_SESSION['login_user'];
 
-if ($get_user = $mysqli->query("SELECT from accounts where username='$user_check'")) {
-    $row = $get_user->fetch_assoc();
-    $login_session = $row['username'];
-    $get_user->free();
+$get_user = $mysqli->prepare("SELECT username,rank FROM accounts WHERE username='$user_check'");
+$get_user->execute();
+$get_user->bind_result($user, $rank);
+$get_user->fetch();
+if ($user && $rank) {
+    $login_session = $user;
 }
 if (!isset($login_session)){
     $mysqli->close();
     header ('location: index.php');
 }
+$get_user->close();
+$mysqli->close();
+
 ?>
 
 
