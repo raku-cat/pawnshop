@@ -1,6 +1,6 @@
 <?php
 
-include ('../../furmazon_db_cfg.php');
+include ('/var/www/furmazon_db_cfg.php');
 
 session_start();
 $error='';
@@ -10,8 +10,6 @@ if (isset($_POST['submit'])) {
     } else {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $mysqli = new mysqli('localhost', $db_user, $db_pass, $db_name);
-        unset ($db_user, $db_pass);
         $get_user = $mysqli->prepare('SELECT password FROM accounts WHERE username=?');
         $get_user->bind_param('s', $username);
         $get_user->execute();

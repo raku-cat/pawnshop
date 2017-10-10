@@ -7,7 +7,7 @@ include ('login.php');
 <html>
     <head>
         <title>Furmazon - Buy and sell art the modern way</title>
-        <link rel="stylesheet" type="text/css" href="layout.css">
+        <link rel="stylesheet" type="text/css" href="/furmazon/layout.css">
 
     </head>
     <body>
@@ -29,7 +29,7 @@ include ('login.php');
                     </tr>
                 </table>
             </form>
-            <a href="register.php">Register</a>
+            <a href="/furmazon/signup">Register</a>
         </div>
     </body>
 </html>
