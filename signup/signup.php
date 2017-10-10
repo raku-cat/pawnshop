@@ -11,13 +11,12 @@ if (isset($_POST['submit'])) {
         $password = $_POST['password'];
         $passwordv = $_POST['passwordv'];
         if ($password == $passwordv) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
+            $account = new Account($mysqli);
+            $result = $account->register($username, $password);
         } else {
             $result = 'Passwords do not match.';
             return false;
         }
-        $account = new Account($mysqli);
-        $result = $account->register($username, $password);
     }
 }
 

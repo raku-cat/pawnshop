@@ -1,7 +1,5 @@
 <?php
 
-include ('/var/www/furmazon_db_cfg.php');
-
 class Codes {
     function __construct($mysqli) {
         $this->mysqli = $mysqli;
@@ -13,16 +11,29 @@ class Codes {
             $addcode->bind_param('ss', $code, $username);
             $addcode->execute();
         }
-        $mysqli->close();
     }
     function get($username) {
-        $getcode = $this->mysqli->prepare('SELECT `code` FROM `access_codes` WHERE `user`=?');
+        $getcode = $this->mysqli->prepare('SELECT `code` FROM `access_codes` WHERE user = ?');
         $getcode->bind_param('s', $username);
         $getcode->execute();
+        $codes = array();
         $getcode->bind_result($code);
+        while ( $getcode->fetch() ) {
+            $codes[] = $code;
+        }
+        return $codes;
+    }
+    function check($code) {
+        $getcode = $this->mysqli->prepare('SELECT `code` FROM `access_codes` WHERE `code` = ?');
+        $getcode->bind_param('s', $code);
+        $getcode->execute();
+        $getcode->bind_result($exists);
         $getcode->fetch();
-        return $code;
-        $this->mysqli->close();
+        if ($exists) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
