@@ -1,5 +1,5 @@
 <?php
-include ('signup.php');
+include_once ('signup.php');
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ include ('signup.php');
                 <input name="username" id="user" placeholder="Username" type="text">
                 <input name="password" id="pass" placeholder="Password" type="password">
                 <input name="passwordv" id="pass" placeholder="Repeat Password" type="password">
-                <input name="submit" id="submit" type="submit" value="Register">
+                <input name="signup" id="signup" type="submit" value="Sign Up">
             </form>
        </div>
     </body>

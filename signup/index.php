@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if( isset($_SESSION['valid_code']) ) {
+if (isset($_SESSION['valid_code'])) {
     $access_code = $_SESSION['valid_code'];
-    include ('register.php');
+    include_once ('register.php');
 } else {
-    include ('access.php');
+    include_once ('access.php');
 }
 ?>

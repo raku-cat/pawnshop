@@ -1,6 +1,6 @@
 <?php
 include ("session.php");
-include ('../inc/codes.php');
+include_once ('../inc/codes.php');
 include ('/var/www/furmazon_db_cfg.php');
 ?>
 

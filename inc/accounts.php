@@ -23,7 +23,7 @@ class Account {
             $submit->execute();
             $accode = new Codes($this->mysqli);
             $accode->generate($username, 3);
-            return 'Registration succesful.';
+            return 'Registration Succesful';
         }
     }
 }

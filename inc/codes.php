@@ -27,13 +27,18 @@ class Codes {
         $getcode = $this->mysqli->prepare('SELECT `code` FROM `access_codes` WHERE `code` = ?');
         $getcode->bind_param('s', $code);
         $getcode->execute();
-        $getcode->bind_result($exists);
+        $getcode->store_result();
         $getcode->fetch();
-        if ($exists) {
+        if ($getcode->num_rows == 1) {
             return true;
         } else {
             return false;
         }
+    }
+    function consume($code) {
+        $usecode = $this->mysqli->prepare('DELETE FROM `access_codes` WHERE `code` = ?');
+        $usecode->bind_param('s', $code);
+        $usecode->execute();
     }
 }
 

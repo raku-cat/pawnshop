@@ -1,7 +1,6 @@
 <?php
 include ('/var/www/furmazon_db_cfg.php');
 
-
 session_start();
 $user_check = $_SESSION['login_user'];
 
@@ -14,7 +13,7 @@ if ($user && $rank) {
     $login_session = $user;
 }
 if (!isset($login_session)){
-    header ('location: /furmazon/index.php');
+    header ('location: /furmazon/');
 }
 
 ?>

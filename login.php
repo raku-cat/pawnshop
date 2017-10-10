@@ -1,27 +1,33 @@
 <?php
-
-include ('/var/www/furmazon_db_cfg.php');
-
-session_start();
-$error='';
-if (isset($_POST['submit'])) {
-    if (empty($_POST['username']) || empty($_POST['password'])) {
-        $error='Empty input';
-    } else {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $get_user = $mysqli->prepare('SELECT password FROM accounts WHERE username = ?');
-        $get_user->bind_param('s', $username);
-        $get_user->execute();
-        $get_user->bind_result($hash);
-        $get_user->fetch();
-        if ( password_verify($password, $hash) ) {
-            $_SESSION['login_user'] = $username;
-            header ("location: profile");
-        } else {
-            $error='Invalid Username or Password.';
-        }
-    }
-}
-
+include ('login_action.php');
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Furmazon - Buy and sell art the modern way</title>
+        <link rel="stylesheet" type="text/css" href="/furmazon/layout.css">
+
+    </head>
+    <body>
+        <div class="header">
+            <h1>Furmazon</h1>
+        </div>
+        <div class="login">
+            <span><?php echo $error; ?></span>
+            <form action="" method="post">
+                <table>
+                    <tr>
+                        <td align="left"><input id="user" name="username" placeholder="username" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><input id="pass" name="password" placeholder="password" type="password"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="login" name="login" type="submit" value="login"></td>
+                    </tr>
+                </table>
+            </form>
+            <a href="/furmazon/signup">Sign Up</a>
+        </div>
+    </body>
+</html>
