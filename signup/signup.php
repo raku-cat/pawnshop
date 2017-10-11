@@ -1,7 +1,7 @@
 <?php
 include ('/var/www/common.php');
-include_once ('../inc/accounts.php');
-include_once ('../inc/codes.php');
+include_once ( ROOT_PATH . 'inc/accounts.php');
+include_once ( ROOT_PATH . 'inc/codes.php');
 $result = '';
 
 if (isset($_POST['signup'])) {

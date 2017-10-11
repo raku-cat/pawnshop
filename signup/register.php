@@ -1,4 +1,5 @@
 <?php
+include_once ('/var/www/common.php');
 include_once ('signup.php');
 ?>
 
@@ -6,9 +7,10 @@ include_once ('signup.php');
 <html>
     <head>
         <title>Paw'n'Shop - Register</title>
-        <link rel="stylesheet" type="text/css" href="/pawnshop/layout.css">
+        <?php include_once ('inc/style_includes.php'); ?>
     </head>
     <body>
+    <?php if (isset($_SESSION['valid_code'])) : ?>
         <div>
             <span><?php echo $result; ?></span>
             <form action="" method="post">
@@ -18,5 +20,8 @@ include_once ('signup.php');
                 <input name="signup" id="signup" type="submit" value="Sign Up">
             </form>
        </div>
+    <?php else : ?>
+        <h1>You arent authorized to view this page</h1>
+    <?php endif; ?>
     </body>
 </html>

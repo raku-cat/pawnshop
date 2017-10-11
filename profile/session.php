@@ -1,5 +1,5 @@
 <?php
-include ('/var/www/common.php');
+include_once ('/var/www/common.php');
 
 session_start();
 $user_check = $_SESSION['login_user'];

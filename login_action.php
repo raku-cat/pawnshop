@@ -1,8 +1,7 @@
 <?php
 
-include ('/var/www/common.php');
+include_once ('/var/www/common.php');
 
-session_start();
 $error='';
 if (isset($_POST['login'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {

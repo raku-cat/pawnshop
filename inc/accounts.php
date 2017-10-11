@@ -23,6 +23,14 @@ class Account {
             return 'Registration Succesful';
         }
     }
+    function getrank($username) {
+        $getrank = $this->mysqli->prepare('SELECT `rank` FROM `accounts` WHERE `username` = ?');
+        $getrank->bind_param('s', $username);
+        $getrank->execute();
+        $getrank->bind_result($rank);
+        $getrank->fetch();
+        return $rank;
+    }
 }
 
 ?>

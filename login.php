@@ -1,11 +1,12 @@
 <?php
-include ('login_action.php');
+include_once ('login_action.php');
+include_once ('/var/www/common.php');
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Paw'n'Shop - Buy and sell art the modern way</title>
-        <link rel="stylesheet" type="text/css" href="/pawnshop/layout.css">
+        <?php include_once (ROOT_PATH . 'inc/style_includes.php'); ?>
 
     </head>
     <body>
