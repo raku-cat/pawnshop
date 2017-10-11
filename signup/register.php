@@ -7,7 +7,7 @@ include_once ('signup.php');
 <html>
     <head>
         <title>Paw'n'Shop - Register</title>
-        <?php include_once ('inc/style_includes.php'); ?>
+        <?php include_once ( ROOT_PATH . 'inc/style_includes.php'); ?>
     </head>
     <body>
     <?php if (isset($_SESSION['valid_code'])) : ?>
