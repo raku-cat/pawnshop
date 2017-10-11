@@ -1,6 +1,6 @@
 <?php
 
-include ('/var/www/furmazon_db_cfg.php');
+include ('/var/www/common.php');
 
 session_start();
 $error='';

@@ -1,7 +1,7 @@
 <?php
 include ("session.php");
 include_once ('../inc/codes.php');
-include ('/var/www/furmazon_db_cfg.php');
+include ('/var/www/common.php');
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ include ('/var/www/furmazon_db_cfg.php');
             <?php endif; ?>
             <?php if ($rank == 'admin') : ?>
             <h2>You're special so you get a cat</h2><br>
-            <img src='/furmazon/cat.jpg'>
+            <img src='/pawnshop/cat.jpg'>
             <?php endif; ?>
         </div>
     </body>

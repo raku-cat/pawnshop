@@ -1,5 +1,5 @@
 <?php
-include ('/var/www/furmazon_db_cfg.php');
+include ('/var/www/common.php');
 
 session_start();
 $user_check = $_SESSION['login_user'];
@@ -13,7 +13,7 @@ if ($user && $rank) {
     $login_session = $user;
 }
 if (!isset($login_session)){
-    header ('location: /furmazon/');
+    header ('location: /pawnshop/');
 }
 
 ?>

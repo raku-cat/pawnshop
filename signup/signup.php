@@ -1,5 +1,5 @@
 <?php
-include ('/var/www/furmazon_db_cfg.php');
+include ('/var/www/common.php');
 include_once ('../inc/accounts.php');
 include_once ('../inc/codes.php');
 $result = '';

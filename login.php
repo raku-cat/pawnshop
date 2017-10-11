@@ -4,13 +4,13 @@ include ('login_action.php');
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Furmazon - Buy and sell art the modern way</title>
-        <link rel="stylesheet" type="text/css" href="/furmazon/layout.css">
+        <title>Paw'n'Shop - Buy and sell art the modern way</title>
+        <link rel="stylesheet" type="text/css" href="/pawnshop/layout.css">
 
     </head>
     <body>
         <div class="header">
-            <h1>Furmazon</h1>
+            <h1><img src='logo.jpg'></h1>
         </div>
         <div class="login">
             <span><?php echo $error; ?></span>
@@ -27,7 +27,7 @@ include ('login_action.php');
                     </tr>
                 </table>
             </form>
-            <a href="/furmazon/signup">Sign Up</a>
+            <a href="signup">Sign Up</a>
         </div>
     </body>
 </html>

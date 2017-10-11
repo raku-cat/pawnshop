@@ -3,7 +3,7 @@ include_once ('access_check.php');
 ?>
 <html>
     <head>
-        <title>Furmazon</title>
+        <title>Paw'n'Shop</title>
     </head>
     <body>
         <?php if(isset($error)) { echo "<span>" . $error . "</span>"; } ?>

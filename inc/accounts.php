@@ -1,15 +1,12 @@
 <?php
 
-include ('/var/www/furmazon_db_cfg.php');
-include ('/var/www/root/furmazon/inc/codes.php');
+include ('/var/www/root/pawnshop/inc/codes.php');
 
 class Account {
     function __construct($mysqli) {
         $this->mysqli = $mysqli;
     }
     function register($username, $password) {
-//        include ('../../../furmazon_db_cfg.php');
-//        include ('../inc/codes.php');
         $exists = $this->mysqli->prepare("SELECT username FROM accounts WHERE username = ?");
         $exists->bind_param('s', $username);
         $exists->execute();

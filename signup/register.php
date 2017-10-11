@@ -5,8 +5,8 @@ include_once ('signup.php');
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Furmazon - Register</title>
-        <link rel="stylesheet" type="text/css" href="/furmazon/layout.css">
+        <title>Paw'n'Shop - Register</title>
+        <link rel="stylesheet" type="text/css" href="/pawnshop/layout.css">
     </head>
     <body>
         <div>

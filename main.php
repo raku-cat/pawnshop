@@ -1,9 +1,10 @@
 <html>
     <head>
-        <title>Furmazon</title>
+        <title>Paw'n'Shop</title>
     <head>
     <body>
-        <h1>Yaaay</h1>
+        <h1><img src='logo.jpg'></h1>
+        <h2>Yaaay</h2>
         <a href="profile">Profile</a>
         <a href="logout.php">Log Out</a>
     </body>
