@@ -1,0 +1,9 @@
+hooks/
+config/
+third_party/
+.htaccess
+sessions/
+cache/
+core/
+helpers/
+index.html
