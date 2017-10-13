@@ -1,0 +1,22 @@
+body {
+    padding: 0;
+    margin: 0 auto;
+}
+.header {
+    display: block;
+    position: relative;
+    margin-left: 50%;
+}
+.login {
+    display: table;
+    position: relative;
+    padding-top: 4%;
+    margin-left: 50%;
+}
+.codes {
+    border-collapse: collapse;
+}
+.codes tr {
+    border: solid black;
+    border-width: 1px 1px;
+}
