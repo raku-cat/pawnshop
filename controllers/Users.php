@@ -18,7 +18,25 @@ class Users extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('login');
+        } else {
+            $email = $this->input->post('email');
+            $password = $this->input->post('password');
+
+            if ($this->users_model->check_login($email, $password)) {
+                $user_id = $this->users_model->get_user_id($email);
+                $user = $this->users_model->get_user($user_id);
+
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['username'] = $user->username;
+                $_SESSION['rank'] = $user->rank;
+                $_SESSION['logged_in'] = true;
+                header ('location: /pawnshop-dev');
+            } else {
+                $data['error'] = 'Invalid username or password';
+                $this->load->view('login', $data);
+            }
         }
+        $this->load->view('templates/footer');
     }
     public function signup() {
         $data['title'] = 'Sign Up';
@@ -58,6 +76,32 @@ class Users extends CI_Controller {
                 $_SESSION['access_code'] = $this->input->post('access_code');
                 header ('location: ' . $this->uri->uri_string());
             }
+        }
+        $this->load->view('templates/footer');
+    }
+    public function profile() {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            $data['title'] = 'Profile';
+            $data['username'] = $_SESSION['username'];
+            $data['rank'] = $_SESSION['rank'];
+            $this->load->model('codes_model');
+            $codes = $this->codes_model->get($_SESSION['user_id']);
+            if (!empty($codes)) {
+                $data['codearray'] = $codes;
+            }
+            $this->load->view('templates/header', $data);
+            $this->load->view('profile', $data);
+            $this->load->view('templates/footer');
+         } else {
+            redirect('/');
+         }
+    }
+    public function logout() {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            $this->session->sess_destroy();
+            redirect('/');
+        } else {
+            redirect('/');
         }
     }
 }

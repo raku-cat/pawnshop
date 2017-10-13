@@ -9,8 +9,7 @@ class Codes_model extends CI_Model {
             $this->db->select('id');
             $this->db->from('accounts');
             $this->db->where('email', $email);
-            $id = $this->db->get();
-            $id = $id->row()->id;
+            $id = $this->db->get()->row()->id;
             $codes = array();
             foreach(range(1 ,$count) as $index) {
                 $code = sha1(uniqid($email, true));
@@ -35,5 +34,10 @@ class Codes_model extends CI_Model {
         $this->db->from('access_codes');
         $this->db->where('code', $code);
         return $this->db->delete();
+    }
+    public function get($user_id) {
+        $this->db->from('access_codes');
+        $this->db->where('id', $user_id);
+        return $this->db->get()->result_array();
     }
 }

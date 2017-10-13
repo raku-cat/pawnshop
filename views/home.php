@@ -1,2 +1,3 @@
-<?=anchor('login', 'Login'); ?>
-<?=anchor('signup', 'Sign Up'); ?>
+<b>Hi <?=$username?></b><br>
+<?=anchor('logout', 'Log out'); ?>
+<?=anchor('profile', 'Profile'); ?>

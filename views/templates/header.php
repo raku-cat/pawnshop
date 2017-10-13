@@ -5,5 +5,5 @@
     </head>
     <body>
         <div class="header">
-            <h1><?=img('assets/images/logo.jpg'); ?></h1>
+            <h1><?=anchor('/', img('assets/images/logo.jpg')); ?></h1>
         </div>

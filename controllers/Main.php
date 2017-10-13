@@ -9,7 +9,15 @@ class Main extends CI_Controller {
         $data['title'] = 'Home';
 
         $this->load->view('templates/header', $data);
-        $this->load->view('home');
+
+        $this->load->library('session');
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            $data['username'] = $_SESSION['username'];
+            $this->load->view('home', $data);
+        } else {
+            $this->load->view('logged_out');
+        }
+
         $this->load->view('templates/footer');
 
     }
