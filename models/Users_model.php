@@ -29,7 +29,7 @@ class Users_model extends CI_Model {
     public function get_user($user_id) {
         $this->db->from('accounts');
         $this->db->where('id', $user_id);
-        return $this->db->get()->row();
+        return $this->db->get();
     }
     private function hash_password($password) {
         return password_hash($password, PASSWORD_DEFAULT);
