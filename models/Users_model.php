@@ -17,19 +17,34 @@ class Users_model extends CI_Model {
         $this->db->select('password');
         $this->db->from('accounts');
         $this->db->where('email', $email);
-        $hash = $this->db->get()->row()->password;
-        return $this->verify_password($password, $hash);
+        $hash_query = $this->db->get();
+        if ($hash_query->num_rows() == 1) {
+            $hash = $hash_query->row()->password;
+            return $this->verify_password($password, $hash);
+        } else {
+            return FALSE;
+        }
     }
     public function get_user_id($email) {
         $this->db->select('id');
         $this->db->from('accounts');
         $this->db->where('email', $email);
-        return $this->db->get()->row()->id;
+        $id_query = $this->db->get();
+        if ($id_query->num_rows() == 1) {
+            return $id_query->row()->id;
+        } else {
+            return FALSE;
+        }
     }
     public function get_user($user_id) {
         $this->db->from('accounts');
         $this->db->where('id', $user_id);
-        return $this->db->get();
+        $user = $this->db->get();
+        if ($user->num_rows() == 1) {
+            return $user;
+        } else {
+            return FALSE;
+        }
     }
     private function hash_password($password) {
         return password_hash($password, PASSWORD_DEFAULT);

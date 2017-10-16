@@ -8,7 +8,7 @@ class Main extends CI_Controller {
     public function index() {
         $data['title'] = 'Home';
 
-        $this->load->view('templates/header', $data);
+        $this->load->view('layoutss/header', $data);
 
         $this->load->library('session');
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
@@ -18,7 +18,7 @@ class Main extends CI_Controller {
             $this->load->view('logged_out');
         }
 
-        $this->load->view('templates/footer');
+        $this->load->view('layouts/footer');
 
     }
 }

@@ -10,7 +10,7 @@ class Invites_model extends CI_Model {
             $invite = array(
                         'id' => $user_id,
                         'code' => $code,
-                        'email' => $email,
+                        'email' => $email
                         );
             return $this->db->insert('invites', $invite);
     }
@@ -33,7 +33,12 @@ class Invites_model extends CI_Model {
         $this->db->select('code');
         $this->db->from('invites');
         $this->db->where('email', $email);
-        return $this->db->get()->row()->code;
+        $query = $this->db->get();
+        if ($query->num_rows() == 1) {
+            return $query->row()->code;
+        } else {
+            return FALSE;
+        }
     }
     public function check($email) {
         $this->db->from('invites');
@@ -53,14 +58,15 @@ class Invites_model extends CI_Model {
         $data['username'] = $username;
         $data['email'] = $email;
         $data['code'] = $code;
-        $this->email->message($this->load->view('invite_email', $data, true));
+        $this->email->message($this->load->view('email/invite_email', $data, true));
         return $this->email->send();
     }
     public function decrement($user_id, $invites_left) {
         $invites_left = $invites_left - 1;
-        $this->load->model('users_model');
-        $user_data = $this->users_model->get_user($user_id)->row_array();
-        $user_data['invites_left'] = $invites_left;
-        $this->db->replace('accounts', $user_data);
+        $user_data = array(
+                    'invites_left' => $invites_left
+                    );
+        $this->db->where('id', $user_id);
+        $this->db->update('accounts', $user_data);
     }
 }

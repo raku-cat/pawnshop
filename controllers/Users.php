@@ -11,13 +11,13 @@ class Users extends CI_Controller {
     public function login() {
         $data['title'] = 'Login';
 
-        $this->load->view('templates/header', $data);
+        $this->load->view('layouts/header', $data);
 
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() === FALSE) {
-            $this->load->view('login');
+            $this->load->view('login/login');
         } else {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
@@ -32,15 +32,15 @@ class Users extends CI_Controller {
                 header ('location: /pawnshop-dev');
             } else {
                 $data['error'] = 'Invalid username or password';
-                $this->load->view('login', $data);
+                $this->load->view('login/login', $data);
             }
         }
-        $this->load->view('templates/footer');
+        $this->load->view('layouts/footer');
     }
     public function signup() {
         $data['title'] = 'Sign Up';
 
-        $this->load->view('templates/header', $data);
+        $this->load->view('layouts/header', $data);
         $this->load->model('invites_model');
 
         if (isset($_SESSION['invite_code'])) {
@@ -53,7 +53,7 @@ class Users extends CI_Controller {
             }
 
             if ($this->form_validation->run() === FALSE) {
-                $this->load->view('signup', $data);
+                $this->load->view('signup/signup', $data);
             } else {
                 $email = $this->input->post('email');
                 $username = $this->input->post('username');
@@ -61,30 +61,32 @@ class Users extends CI_Controller {
                 $code = $_SESSION['invite_code'];
                 if ($this->invites_model->check($email) && $this->users_model->create_user($email, $username, $password) && $this->invites_model->consume($code)) {
                     $this->session->sess_destroy();
-                    $this->load->view('signupSuccess');
+                    $this->load->view('signup/signupSuccess');
                 } else {
                     $data['error'] = 'An error occured, your invite may have expired or you used a different email than the one you were invited with';
-                    $this->load->view('signup', $data);
+                    $this->load->view('signup/signup', $data);
                 }
             }
         } else {
             if (isset($_GET['invite_code'])) {
                 $this->form_validation->set_data($_GET);
             }
-            $this->form_validation->set_rules('invite_code', 'Invite code', 'trim|exact_length[40]', array('invite_valid', array($this->invites_model, 'exists')));
+            $this->form_validation->set_rules('invite_code', 'Invite code', array('trim', 'required', 'exact_length[40]', array('invite_valid', array($this->invites_model, 'exists'))));
             $this->form_validation->set_message('invite_valid', 'Invalid invite');
 
             if ($this->form_validation->run() === FALSE) {
-                $this->load->view('access');
+                $this->load->view('signup/access');
             } else {
                 $_SESSION['invite_code'] = isset($_GET['invite_code']) ? $_GET['invite_code'] : $this->input->post('invite_code');
+                $this->session->mark_as_temp('invite_code', 180);
                 if (isset($_GET['email'])) {
                     $_SESSION['email'] = $_GET['email'];
+                    $this->session->mark_as_temp('email', 180);
                 }
                 header ('location: ' . $this->uri->uri_string());
             }
         }
-        $this->load->view('templates/footer');
+        $this->load->view('layouts/footer');
     }
     public function profile() {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
@@ -93,11 +95,11 @@ class Users extends CI_Controller {
             $data['username'] = $_SESSION['username'];
             $data['rank'] = $user->rank;
             $data['invites_left'] = $user->invites_left;
-            $this->load->view('templates/header', $data);
+            $this->load->view('layouts/header', $data);
             if (isset($_POST['invite_email'])) {
                 $this->form_validation->set_rules('invite_email', 'Email', 'trim|required|valid_email|is_unique[accounts.email]|is_unique[invites.email]', array('is_unique' => 'User is already registered or invited'));
                 if ($this->form_validation->run() === FALSE) {
-                    $this->load->view('profile', $data);
+                    $this->load->view('profile/profile', $data);
                 } else {
                     $this->load->model('invites_model');
                     $invite_email = $this->input->post('invite_email');
@@ -112,12 +114,12 @@ class Users extends CI_Controller {
                     } else {
                         $data['result'] = 'Something went wrong, tell an admin to get your invite back :(';
                     }
-                    $this->load->view('profile', $data);
+                    $this->load->view('profile/profile', $data);
                 }
             } else {
-                $this->load->view('profile', $data);
+                $this->load->view('profile/profile', $data);
             }
-            $this->load->view('templates/footer');
+            $this->load->view('layouts/footer');
          } else {
             redirect('/');
          }
