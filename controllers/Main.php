@@ -8,12 +8,12 @@ class Main extends CI_Controller {
     public function index() {
         $data['title'] = 'Home';
 
-        $this->load->view('layoutss/header', $data);
+        $this->load->view('layouts/header', $data);
 
         $this->load->library('session');
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             $data['username'] = $_SESSION['username'];
-            $this->load->view('home', $data);
+            $this->load->view('index', $data);
         } else {
             $this->load->view('logged_out');
         }

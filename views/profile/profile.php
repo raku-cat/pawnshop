@@ -7,7 +7,7 @@
     <span>Invites left: <?=$invites_left?></span>
     <span><?=validation_errors(); ?></span><br>
     <?=form_open('profile'); ?>
-        <input name="invite_email" id="invite_email" placeholder="Email" type="text">
+        <input name="invite_email" id="invite_email" placeholder="Email" type="email">
         <input name="invite" id="invite" value="Invite" type="submit">
     </form>
 </div>

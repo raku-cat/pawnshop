@@ -6,13 +6,17 @@ class Invites_model extends CI_Model {
         $this->load->database();
     }
     public function generate($user_id, $email) {
-            $code = sha1(uniqid($email, true));
-            $invite = array(
-                        'id' => $user_id,
-                        'code' => $code,
-                        'email' => $email
-                        );
-            return $this->db->insert('invites', $invite);
+            $code = bin2hex($this->security->get_random_bytes(40));
+            if (isset($code)) {
+                $invite = array(
+                            'id' => $user_id,
+                            'code' => $code,
+                            'email' => $email
+                            );
+                return $this->db->insert('invites', $invite);
+            } else {
+                return FALSE;
+            }
     }
     public function exists($code) {
         $this->db->from('invites');
@@ -52,9 +56,9 @@ class Invites_model extends CI_Model {
     }
     public function send($username, $email, $code) {
         $this->load->library('email');
-        $this->email->from('donotreply@raku.party');
+        $this->email->from('donotreply@raku.party', 'Paw\'n\'Shop Admins');
         $this->email->to($email);
-        $this->email->subject('You\'re invited to Paw\'n\'Shop!');
+        $this->email->subject('You\'ve been invited to Paw\'n\'Shop');
         $data['username'] = $username;
         $data['email'] = $email;
         $data['code'] = $code;
