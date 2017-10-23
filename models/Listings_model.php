@@ -12,6 +12,13 @@ class Listings_model extends CI_Model {
             $this->db->join('accounts', 'accounts.id = listings.user_id');
             $listings = $this->db->get();
             return $listings->result_array();
+        } else {
+            $this->db->select('listings.*, accounts.username');
+            $this->db->from('listings');
+            $this->db->where('listings.id = ' . $id);
+            $this->db->join('accounts', 'accounts.id = listings.user_id');
+            $listings = $this->db->get();
+            return $listings->row_array();
         }
     }
     public function create($listing_array) {

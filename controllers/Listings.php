@@ -21,12 +21,23 @@ class Listings extends CI_Controller {
             redirect ('/');
         }
     }    
-    public function view($id) {
+    public function view($id = NULL, $slug = NULL) {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == TRUE) {
-            $listing_array = $this->listings_model->get($id);
-            $data['title'] = $listing_data['title'];
-            $data['listing_data'] = $listing_data;
+            $listings_array = $this->listings_model->get($id);
+            if (empty($listings_array)) {
+                show_404();
+            }
+            if ( $slug != $listings_array['slug'] ) {
+                $url = explode('/', uri_string());
+                array_pop($url);
+                $url = implode('/', $url);
+                redirect ($url . '/' . $listings_array['slug']);
+            }
+            $data['title'] = $listings_array['title'];
+            $this->load->view('layouts/header', $data);
+            $data['listings_array'] = $listings_array;
             $this->load->view('listings/view', $data);
+            $this->load->view('layouts/footer');
         } else {
             redirect ('/');
         }
@@ -65,7 +76,7 @@ class Listings extends CI_Controller {
                         $image_name = $this->upload->data('file_name');
                         $upload_path = mb_substr($upload_config['upload_path'],2);
                         $wm_config['source_image'] = $image_path;
-                        $wm_config['wm_text'] = 'Copyright ' . $_SESSION['username'] . ' – ' . date('Y');
+                        $wm_config['wm_text'] = 'Copyright ' . $_SESSION['username'] . ' - ' . date('Y');
                         $wm_config['wm_type'] = 'text';
                         if ($this->upload->data('image_width') > 720 || $this->upload->data('image_height') > 480) {
                             $resize_config['source_image'] = $image_path;
@@ -77,12 +88,6 @@ class Listings extends CI_Controller {
                         $thumb_config['height'] = 120;
                         $thumb_config['create_thumb'] = TRUE;
                         $thumb_config['new_image'] = $image_file_path.$image_raw_name.'_thumb'.$image_ext;
-                        $this->image_lib->initialize($wm_config);
-                        if ( ! $this->image_lib->watermark() ) {
-                            $data['error'] = $this->image_lib->display_errors('<span>', '</span>');
-                            $this->load->view('listings/create/index', $data);
-                            return FALSE;
-                        }
                         if (isset($resize_config)) {
                             $this->image_lib->initialize($resize_config);
                             if ( ! $this->image_lib->resize() ) {
@@ -90,6 +95,12 @@ class Listings extends CI_Controller {
                                 $this->load->view('listings/create/index', $data);
                                 return FALSE;
                             }
+                        }
+                        $this->image_lib->initialize($wm_config);
+                        if ( ! $this->image_lib->watermark() ) {
+                            $data['error'] = $this->image_lib->display_errors('<span>', '</span>');
+                            $this->load->view('listings/create/index', $data);
+                            return FALSE;
                         }
                         $this->image_lib->initialize($thumb_config);
                         if ( ! $this->image_lib->resize() ) {

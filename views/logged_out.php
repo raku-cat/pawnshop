@@ -1,2 +1,2 @@
-<?=anchor('login', 'Login'); ?>
-<?=anchor('signup', 'Sign Up'); ?>
+<?=anchor('accounts/login', 'Login'); ?>
+<?=anchor('accounts/signup', 'Sign Up'); ?>
