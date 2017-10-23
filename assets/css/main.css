@@ -1,21 +1,44 @@
 body {
     padding: 0;
     margin: 0 auto;
+    background: #805B87;
 }
 .header {
     display: block;
     position: relative;
 }
+.login_form {
+    margin-left: 50px;
+    padding-top: 100px
+}
 .login {
     display: table;
-    position: relative;
-    padding-top: 4%;
-    margin-left: 50%;
+    position: absolute;
+    top: 35%;
+    margin-left: 41%;
+    background: #5B6287;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.03);
+    width: 300px;
+    height: 280px;
+    border-radius: 20px;
+    animation-name: loginfancy;
+    animation-duration: .8s;
+    
 }
-.codes {
+.listing_container {
     border-collapse: collapse;
 }
-.codes tr {
+.individual_listing_container {
     border: solid black;
     border-width: 1px 1px;
+}
+@keyframes loginfancy{
+    from {
+        opacity: 0;
+        top: 40%;
+    }
+    to {
+        opacity: 1;
+        top: 35%;
+    }
 }

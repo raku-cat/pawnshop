@@ -7,7 +7,10 @@ class Listings_model extends CI_Model {
     }
     public function get($id = FALSE) {
         if ($id === FALSE) {
-            $listings = $this->db->get('listings');
+            $this->db->select('listings.*, accounts.username');
+            $this->db->from('listings');
+            $this->db->join('accounts', 'accounts.id = listings.user_id');
+            $listings = $this->db->get();
             return $listings->result_array();
         }
     }

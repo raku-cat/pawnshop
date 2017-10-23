@@ -5,5 +5,5 @@
     </head>
     <body>
         <div class="header">
-            <?=heading(anchor('', img(array('src' => 'assets/images/logo.jpg', 'srcset' => 'assets/images/logo.svg'))), 1); ?></h1>
+            <?=heading(anchor('', img(array('src' => base_url('assets/images/logo.jpg'), 'srcset' => base_url('assets/images/logo.svg')))), 1); ?>
         </div>
